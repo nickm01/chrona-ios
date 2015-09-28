@@ -18,7 +18,7 @@ class CircleGraphView: UIView {
         let start: CGFloat = -0.25 * fullCircle
         let end: CGFloat = endArc * fullCircle + start
         
-        var centerPoint = CGPointMake(CGRectGetMidX(rect), CGRectGetMidY(rect))
+        let centerPoint = CGPointMake(CGRectGetMidX(rect), CGRectGetMidY(rect))
         var radius:CGFloat = 0.0
         if CGRectGetWidth(rect) > CGRectGetHeight(rect){
             radius = (CGRectGetWidth(rect) - arcWidth) / 2.0
@@ -30,7 +30,7 @@ class CircleGraphView: UIView {
         let colorspace = CGColorSpaceCreateDeviceRGB()
         
         CGContextSetLineWidth(context, arcWidth)
-        CGContextSetLineCap(context, kCGLineCapRound)
+        CGContextSetLineCap(context, CGLineCap.Round)
         CGContextSetStrokeColorWithColor(context, arcColor.CGColor)
         
         CGContextAddArc(context, centerPoint.x, centerPoint.y, radius, start, end, 0)

@@ -22,20 +22,20 @@ class LoginViewController: UIViewController {
     }
     
     @IBAction func loginTouch(sender: AnyObject) {
-        var email:NSString = EmailText.text as NSString
-        var password:NSString = PasswordText.text as NSString
-        var response: NSDictionary? = requestController.login(String(email), password: String(password))
+        let email:NSString = EmailText.text as NSString
+        let password:NSString = PasswordText.text as NSString
+        let response: NSDictionary? = requestController.login(String(email), password: String(password))
         if(response?.objectForKey("sessionToken") != nil) {
-            var prefs:NSUserDefaults = NSUserDefaults.standardUserDefaults()
+            let prefs:NSUserDefaults = NSUserDefaults.standardUserDefaults()
             prefs.setObject(response?.objectForKey("Token"), forKey: "SessionToken")
             prefs.synchronize()
             
             let mainStoryboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-            var viewController = mainStoryboard.instantiateViewControllerWithIdentifier("tabBarController") as! UITabBarController
+            let viewController = mainStoryboard.instantiateViewControllerWithIdentifier("tabBarController") as! UITabBarController
             UIApplication.sharedApplication().keyWindow!.rootViewController = viewController;
         }
         else {
-            var alert = UIAlertController(title: "Invalid Login", message: "Invalid username or password", preferredStyle: UIAlertControllerStyle.Alert)
+            let alert = UIAlertController(title: "Invalid Login", message: "Invalid username or password", preferredStyle: UIAlertControllerStyle.Alert)
             alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
             self.presentViewController(alert, animated: true, completion: nil)
         }

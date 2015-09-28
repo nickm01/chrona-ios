@@ -19,7 +19,7 @@ class SettingsViewController: UIViewController {
     @IBAction func logoutTouch(sender: AnyObject) {
         //FIXME destroy session through new services
         let mainStoryboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-        var viewController = mainStoryboard.instantiateViewControllerWithIdentifier("loginViewController") as! LoginViewController
+        let viewController = mainStoryboard.instantiateViewControllerWithIdentifier("loginViewController") as! LoginViewController
         UIApplication.sharedApplication().keyWindow!.rootViewController = viewController;
     }
     

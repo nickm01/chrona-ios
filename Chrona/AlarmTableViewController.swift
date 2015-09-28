@@ -9,8 +9,8 @@ class AlarmTableViewController: UITableViewController {
 
         tableView.backgroundView = UIImageView(image: UIImage(named: "background-L5"))
         self.tableView.tableFooterView = UIView(frame: CGRectZero)
-        alarms.append(Alarm(time: NSDate(timeIntervalSinceNow: 10000), repeat: false))
-        alarms.append(Alarm(time:NSDate(timeIntervalSinceNow: 12000), repeat: false))
+        alarms.append(Alarm(time: NSDate(timeIntervalSinceNow: 10000), `repeat`: false))
+        alarms.append(Alarm(time:NSDate(timeIntervalSinceNow: 12000), `repeat`: false))
     }
 
     override func didReceiveMemoryWarning() {
@@ -34,7 +34,7 @@ class AlarmTableViewController: UITableViewController {
         
         let alarm = alarms[indexPath.row] as Alarm
         let calendar = NSCalendar.currentCalendar()
-        let comp = calendar.components((.CalendarUnitHour | .CalendarUnitMinute), fromDate: alarm.time)
+        let comp = calendar.components(([.Hour, .Minute]), fromDate: alarm.time)
         cell.timeLabel.text = String(comp.hour) + ":" + String(comp.minute)
         cell.activeSwitch.setOn(alarm.active, animated: false)
         

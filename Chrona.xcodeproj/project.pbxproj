@@ -272,6 +272,8 @@
 		DD9FDE151B79469E0051FDBA /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftMigration = 0700;
+				LastSwiftUpdateCheck = 0700;
 				LastUpgradeCheck = 0640;
 				ORGANIZATIONNAME = Ultradia;
 				TargetAttributes = {

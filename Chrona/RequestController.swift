@@ -7,8 +7,8 @@ public class RequestController {
     
     func login(email: String, password: String) -> NSDictionary? {
         
-        var params = ["email":email, "password":password] as Dictionary<String, String>
-        var url = "/Login"
+        let params = ["email":email, "password":password] as Dictionary<String, String>
+        let url = "/Login"
         var sessionToken: String!
         var success: Bool?
         var requestResponse: NSDictionary?
@@ -25,8 +25,8 @@ public class RequestController {
     
     func register(email: String, password: String, firstname: String, lastname: String) -> Bool {
         
-        var url = "/Register"
-        var params = ["email":email, "password":password, "firstname":firstname, "lastname":lastname] as Dictionary<String, String>
+        let url = "/Register"
+        let params = ["email":email, "password":password, "firstname":firstname, "lastname":lastname] as Dictionary<String, String>
         var success: Bool?
         
         self.post(params, url: url) { (succeeded: Bool, response: NSDictionary?) ->() in
@@ -40,9 +40,9 @@ public class RequestController {
     }
     
     func logout() {
-        var url = "/Logout"
+        let url = "/Logout"
         self.post(nil, url: url) { (succeeded: Bool, response: NSDictionary?) -> () in
-            println("Logged Out")
+            print("Logged Out")
         }
     }
     
@@ -57,7 +57,12 @@ public class RequestController {
         
         //Add parameters if any were passed in
         if (params != nil) {
-            request.HTTPBody = NSJSONSerialization.dataWithJSONObject(params!, options: nil, error: &err)
+            do {
+                request.HTTPBody = try NSJSONSerialization.dataWithJSONObject(params!, options: [])
+            } catch var error as NSError {
+                err = error
+                request.HTTPBody = nil
+            }
         }
         
         //Add session header if a session exists
@@ -68,17 +73,17 @@ public class RequestController {
         request.addValue("application/json", forHTTPHeaderField: "Accept")
         
         var task = session.dataTaskWithRequest(request, completionHandler: {data, response, error -> Void in
-            println("Response: \(response)")
+            print("Response: \(response)")
             var strData = NSString(data: data, encoding: NSUTF8StringEncoding)
-            println("Body: \(strData)")
+            print("Body: \(strData)")
             var err: NSError?
-            var json = NSJSONSerialization.JSONObjectWithData(data, options: .MutableLeaves, error: &err) as? NSDictionary
+            var json = NSJSONSerialization.JSONObjectWithData(data, options: .MutableLeaves) as? NSDictionary
             
             // Check for error creating JSON object
             if(err != nil) {
-                println(err!.localizedDescription)
+                print(err!.localizedDescription)
                 let jsonStr = NSString(data: data, encoding: NSUTF8StringEncoding)
-                println("Error could not parse JSON: '\(jsonStr)'")
+                print("Error could not parse JSON: '\(jsonStr)'")
                 postCompleted(succeeded: false, response: nil)
             }
             else {
@@ -90,7 +95,7 @@ public class RequestController {
                 else {
                     // JSON object was nil
                     let jsonStr = NSString(data: data, encoding: NSUTF8StringEncoding)
-                    println("Error could not parse JSON: \(jsonStr)")
+                    print("Error could not parse JSON: \(jsonStr)")
                     postCompleted(succeeded: false, response: nil)
                 }
             }
@@ -115,17 +120,17 @@ public class RequestController {
         request.addValue("application/json", forHTTPHeaderField: "Accept")
         
         var task = session.dataTaskWithRequest(request, completionHandler: {data, response, error -> Void in
-            println("Response: \(response)")
+            print("Response: \(response)")
             var strData = NSString(data: data, encoding: NSUTF8StringEncoding)
-            println("Body: \(strData)")
+            print("Body: \(strData)")
             var err: NSError?
-            var json = NSJSONSerialization.JSONObjectWithData(data, options: .MutableLeaves, error: &err) as? NSDictionary
+            var json = NSJSONSerialization.JSONObjectWithData(data, options: .MutableLeaves) as? NSDictionary
             
             // Check for error creating JSON object
             if(err != nil) {
-                println(err!.localizedDescription)
+                print(err!.localizedDescription)
                 let jsonStr = NSString(data: data, encoding: NSUTF8StringEncoding)
-                println("Error could not parse JSON: '\(jsonStr)'")
+                print("Error could not parse JSON: '\(jsonStr)'")
                 getCompleted(succeeded: false, response: nil)
             }
             else {
@@ -137,7 +142,7 @@ public class RequestController {
                 else {
                     // JSON object was nil
                     let jsonStr = NSString(data: data, encoding: NSUTF8StringEncoding)
-                    println("Error could not parse JSON: \(jsonStr)")
+                    print("Error could not parse JSON: \(jsonStr)")
                     getCompleted(succeeded: false, response: nil)
                 }
             }

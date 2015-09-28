@@ -9,7 +9,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
             let mainStoryboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-            var viewController = mainStoryboard.instantiateViewControllerWithIdentifier("tabBarController") as! UITabBarController
+            let viewController = mainStoryboard.instantiateViewControllerWithIdentifier("tabBarController") as! UITabBarController
             if let window = self.window {
                 window.rootViewController = viewController
             }

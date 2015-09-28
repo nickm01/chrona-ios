@@ -23,14 +23,14 @@ class AlarmsViewController: UIViewController, UITableViewDelegate, UITableViewDa
 
     @IBAction func addAlarmTouch(sender: AnyObject) {
         let mainStoryboard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
-        var addAlarmView : TimePickerViewController = mainStoryboard.instantiateViewControllerWithIdentifier("timePickerViewController") as! TimePickerViewController
+        let addAlarmView : TimePickerViewController = mainStoryboard.instantiateViewControllerWithIdentifier("timePickerViewController") as! TimePickerViewController
         addAlarmView.delegate = self
         
         self.presentViewController(addAlarmView, animated: true, completion: nil)
     }
     
     func backFromAddAlarm(newAlarmTime: NSDate) {
-        alarms.append(Alarm(time: newAlarmTime, repeat: false))
+        alarms.append(Alarm(time: newAlarmTime, `repeat`: false))
         alarmTableView.reloadData()
     }
 
@@ -44,7 +44,7 @@ class AlarmsViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
         let alarm = alarms[indexPath.row] as Alarm
         let calendar = NSCalendar.currentCalendar()
-        let comp = calendar.components((.CalendarUnitHour | .CalendarUnitMinute), fromDate: alarm.time)
+        let comp = calendar.components(([.Hour, .Minute]), fromDate: alarm.time)
         cell.timeLabel.text = String(comp.hour % 12) + ":" + String(comp.minute)
         cell.activeSwitch.setOn(alarm.active, animated: false)
         

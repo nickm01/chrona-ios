@@ -21,7 +21,7 @@ class AnalyticsViewController: UIViewController {
     var currentRecordDate: NSDate
     var currentSleepReport: SleepReport
     
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         
         currentRecordDate = NSDate()
         currentSleepReport = sleepRecordManager.getSleepReport(currentRecordDate)
@@ -45,8 +45,8 @@ class AnalyticsViewController: UIViewController {
     }
     
     private func minutesToTimeString(minutes: Int) -> String {
-        var hours: Int = minutes / 60
-        var minutes: Int = minutes % 60
+        let hours: Int = minutes / 60
+        let minutes: Int = minutes % 60
         return String(hours) + "hrs" + String(minutes) + "min"
     }
     
@@ -58,7 +58,7 @@ class AnalyticsViewController: UIViewController {
     }
     
     private func setSleepScore() {
-        var sleepScore = currentSleepReport.getSleepScore()
+        let sleepScore = currentSleepReport.getSleepScore()
         sleepScoreNumberLabel.text = String(currentSleepReport.getSleepScore())
         sleepScoreGraphView.endArc = CGFloat(Float(sleepScore) / 100.0)
     }
