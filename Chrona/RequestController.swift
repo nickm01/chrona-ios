@@ -129,7 +129,7 @@ public class RequestController {
             print("Response: \(response)")
             guard let responseData = data else {
                 print("Error response data nil")
-                postCompleted(succeeded: false, response: nil)
+                getCompleted(succeeded: false, response: nil)
                 return
             }
             let strData = NSString(data: responseData, encoding: NSUTF8StringEncoding)

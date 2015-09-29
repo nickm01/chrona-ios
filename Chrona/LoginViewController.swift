@@ -22,9 +22,9 @@ class LoginViewController: UIViewController {
     }
     
     @IBAction func loginTouch(sender: AnyObject) {
-        let email:NSString = EmailText.text as NSString
-        let password:NSString = PasswordText.text as NSString
-        let response: NSDictionary? = requestController.login(String(email), password: String(password))
+        //NM let email:NSString = EmailText.text as NSString
+        //NM let password:NSString = PasswordText.text as NSString
+        let response: NSDictionary? = requestController.login(EmailText.text!, password: PasswordText.text!)
         if(response?.objectForKey("sessionToken") != nil) {
             let prefs:NSUserDefaults = NSUserDefaults.standardUserDefaults()
             prefs.setObject(response?.objectForKey("Token"), forKey: "SessionToken")
